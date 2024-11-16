@@ -1,0 +1,81 @@
+{
+  "inbounds": [
+    {
+      "port": 1080,
+      "listen": "0.0.0.0",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "your.v2ray.server",  // Replace with your V2Ray server address
+            "port": 10086,  // Replace with your server's port
+            "users": [
+              {
+                "id": "your-uuid",  // Replace with your UUID
+                "alterId": 64,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "mux": {
+        "enabled": true,
+        "concurrency": 8
+      }
+    }
+  ],
+  "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4"
+    ]
+  },
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": ["proxy"],
+        "outboundTag": "direct"
+      }
+    ]
+  },
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
+  },
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "your-server-address",
+            "port": 10086,
+            "users": [
+              {
+                "id": "your-uuid",
+                "alterId": 64,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
